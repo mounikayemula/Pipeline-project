@@ -17,10 +17,9 @@ pipeline {
         stage('--package--') {
             steps {
                 sh "mvn package"
-                sh "mv target/*.jar target/myapp.jar"
             }
         }
-        stage("deploy-ec2"){
+       stage("deploy-ec2"){
             steps{
             sshagent(['dev-server']) {
             sh """
