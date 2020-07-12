@@ -17,6 +17,7 @@ pipeline {
         stage('--package--') {
             steps {
                 sh "mvn package"
+                sh "mv target/*.jar taget/myapp.jar"
             }
         }
        stage("deploy-ec2"){
