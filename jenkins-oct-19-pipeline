@@ -8,49 +8,19 @@ pipeline{
 		DEV_IP = "172.31.6.150"
 	}
 	stages{
-	/*
 		stage('SCM - Checkout'){
 			steps{
 				git url: 'https://github.com/javahometech/myweb'
 			
 			}
 		}
-	*/	
-	
-	    stage('sonar and maven'){
-			parallel{
-				stage('Sonar Report'){
-					steps{
-						withSonarQubeEnv('sonar-7.5') {
-							sh "mvn sonar:sonar"
-							
-					    }
-						
-						timeout(time: 1, unit: 'HOURS') {
-								script{
-									def qg = waitForQualityGate()
-									if (qg.status != 'OK') {
-										error "Pipeline aborted due to quality gate failure: ${qg.status}"
-									}
-								}
-						}
-					
-					}
-				
-				}
-				
-				stage('Maven Build'){
-					steps{
-					
-						sh "mvn clean package"
-					}
-				
-				}
-			
-			}
 		
-		}	
-	
+		stage('Maven - Build'){
+			steps{
+			   sh "mvn clean package"
+			}
+		}
+		
 		stage('Docker - Build'){
 			steps{
 			   withCredentials([string(credentialsId: 'nexus-docker', variable: 'nexusPwd')]) {
@@ -69,8 +39,6 @@ pipeline{
 		
 		stage('Docker - Deploy - Dev'){
 			steps{
-			    // input 'Do you want to deploy to dev servers?'
-				
 				sh returnStatus: true, script: "ssh ec2-user@${DEV_IP} docker rm -f myweb"
 				withCredentials([string(credentialsId: 'nexus-docker', variable: 'nexusPwd')]) {
 					sh returnStatus: true, script: "ssh ec2-user@${DEV_IP} docker login -u admin -p ${nexusPwd} ${NEXUS_HOST}"

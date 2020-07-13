@@ -1,0 +1,19 @@
+currentDir = "src"
+def appEnvs = ["dev","prod","itg"]
+properties([pipelineTriggers([githubPush()])])
+pipeline{
+    agent any
+    stages{
+        stage("Git Checkout"){
+            steps{
+               git "https://github.com/javahometech/myweb"
+            }
+        }
+    }
+    
+    post{
+        always{
+            echo "I'm always there buddy"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pets-app
+  labels:
+    app: pets-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pets-app
+  template:
+    metadata:
+      labels:
+        app: pets-app
+    spec:
+      containers:
+      - name: pets-app
+        image: 13.233.112.225:8083/myweb:commit_hash
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: nexuspwd
