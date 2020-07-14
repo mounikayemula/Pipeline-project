@@ -23,9 +23,9 @@ pipeline {
             steps{
             sshagent(['dev-server']) {
             sh """
-            scp -o StrictHostKeyChecking=no  target/*.war ec2-user@ec2-35-165-98-58.us-west-2.compute.amazonaws.com:/opt/tomcat8/webapps/
-            ssh ec2-user@ec2-35-165-98-58.us-west-2.compute.amazonaws.com /opt/tomcat8/bin/shutdown.sh
-            ssh ec2-user@ec2-35-165-98-58.us-west-2.compute.amazonaws.com /opt/tomcat8/bin/startup.sh
+            scp -o StrictHostKeyChecking=no  target/*.war ec2-user@ec2-34-219-104-198.us-west-2.compute.amazonaws.com:/opt/tomcat8/webapps/
+            ssh ec2-user@ec2-34-219-104-198.us-west-2.compute.amazonaws.com /opt/tomcat8/bin/shutdown.sh
+            ssh ec2-user@ec2-34-219-104-198.us-west-2.compute.amazonaws.com /opt/tomcat8/bin/startup.sh
             
             """
               }
