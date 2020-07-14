@@ -21,7 +21,7 @@ pipeline {
         }
        stage("deploy-ec2"){
             steps{
-            sshagent(['dev-server']) {
+            sshagent(credentials: ['mutibranch']) {
             sh """
             scp -o StrictHostKeyChecking=no  target/*.war ec2-user@ec2-35-165-98-58.us-west-2.compute.amazonaws.com:/opt/tomcat8/webapps/
             ssh ec2-user@ec2-35-165-98-58.us-west-2.compute.amazonaws.com /opt/tomcat8/bin/shutdown.sh
