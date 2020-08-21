@@ -28,6 +28,7 @@ pipeline {
             ssh ec2-user@ec2-35-165-98-58.us-west-2.compute.amazonaws.com /opt/tomcat8/bin/startup.sh
             
             """
+                
               }
             }
         }
